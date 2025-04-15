@@ -1,18 +1,19 @@
+const CELL_SIZE = 16
+
 export default class Tank {
     direction = 0;
-    x= 100;
-    y = 100;
+    x= 4 * CELL_SIZE;
+    y = 12 * CELL_SIZE;
     animationFrame = 0;
-    size = 16; // размер танка на спрайте по х и у
     frames = [
-        [0 * this.size, 0 * this.size, this.size, this.size],
-        [1 * this.size, 0 * this.size, this.size, this.size],
-        [6 * this.size, 0 * this.size, this.size, this.size],
-        [7 * this.size, 0 * this.size, this.size, this.size],
-        [4 * this.size, 0 * this.size, this.size, this.size],
-        [5 * this.size, 0 * this.size, this.size, this.size],
-        [2 * this.size, 0 * this.size, this.size, this.size],
-        [3 * this.size, 0 * this.size, this.size, this.size],
+        [0, 0, CELL_SIZE, CELL_SIZE],
+        [CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [6 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [7 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [4 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [5 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [2 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
+        [3 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE],
     ]
     get sprite() {
         return this.frames[this.direction * 2 + this.animationFrame];
