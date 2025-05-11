@@ -1,9 +1,11 @@
 import {CELL_SIZE, DIRECTION} from "./constants.js";
 
 export default class Tank {
-    direction = 0;
+    direction = DIRECTION.UP;
     x= 4 * CELL_SIZE;
     y = 12 * CELL_SIZE;
+    width = CELL_SIZE;
+    height = CELL_SIZE;
     speed = 1;
     animationFrame = 0;
     frames = [
@@ -23,7 +25,7 @@ export default class Tank {
     update(world, activeKeys) {
         if(activeKeys.has('ArrowUp')) {
             this._turn(DIRECTION.UP)
-            
+
             if(world.canMove(this)) {
                 this._move('y', -1)
             }
@@ -31,7 +33,7 @@ export default class Tank {
             this._turn(DIRECTION.RIGHT)
 
             if(world.canMove(this)) {
-                this._move('x', +1)
+                this._move('x', 1)
             }
         } else if(activeKeys.has('ArrowDown')) {
             this._turn(DIRECTION.DOWN)

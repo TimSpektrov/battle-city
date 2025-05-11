@@ -1,5 +1,3 @@
-import {CELL_SIZE} from "./constants.js";
-
 export default class View{
     constructor(canvas, sprite) {
         this.canvas = canvas;
@@ -13,11 +11,11 @@ export default class View{
 
     update(world) {
         this.clearScreen()
-        this.renderLevel1(world.level)
+        this.renderLevel(world.level)
         this.renderPlayer1Tank(world.player1Tank)
     }
 
-    renderLevel1(level) {
+    renderLevel(level) {
         for (let i = 1; i < level.length; i++) {
             for (let j = 0; j < level[i].length; j++) {
                 const block = level[i][j]
