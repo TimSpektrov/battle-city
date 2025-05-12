@@ -5,6 +5,7 @@ export default class Game {
         this.levels = levels
         this.level = 0
         this.activeKeys = new Set()
+
         this.loop = this.loop.bind(this)
     }
 
@@ -13,7 +14,6 @@ export default class Game {
         this.world.setLevel(this.levels[this.level]);
 
         document.addEventListener('keydown', (e) => {
-            e.preventDefault()
             switch (e.code) {
                 case 'ArrowUp':
                 case 'ArrowDown':
@@ -21,12 +21,12 @@ export default class Game {
                 case 'ArrowRight':
                 case 'Space':
                 case 'Enter':
+                    e.preventDefault()
                     this.activeKeys.add(e.code)
             }
         })
 
         document.addEventListener('keyup', (e) => {
-            e.preventDefault()
             switch (e.code) {
                 case 'ArrowUp':
                 case 'ArrowDown':
@@ -34,6 +34,7 @@ export default class Game {
                 case 'ArrowRight':
                 case 'Space':
                 case 'Enter':
+                    e.preventDefault()
                     this.activeKeys.delete(e.code)
             }
         })
