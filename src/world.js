@@ -31,44 +31,67 @@ export default class World {
     }
 
     canMove(object) {
-        const {x, y, direction, width, height} = object;
+        const { direction, x, y, width, height } = object;
 
-
-        if(direction === DIRECTION.UP) {
+        if (direction === DIRECTION.UP) {
             const nextY = y - 1;
-            const objectOnPath = this._getObjectOnPath(object, x, nextY)
-            return !objectOnPath && nextY > 0;
-        } else if (object.direction === DIRECTION.RIGHT) {
+            const objectOnPath = this._getObjectOnY(object, nextY);
+
+            return !objectOnPath && nextY >= 0;
+        } else if (direction === DIRECTION.RIGHT) {
             const nextX = x + 1;
-            const objectOnPath = this._getObjectOnPath(object, nextX, y)
-            return !objectOnPath && nextX + CELL_SIZE < this.size;
-        } else if (object.direction === DIRECTION.DOWN) {
+            const objectOnPath = this._getObjectOnX(object, nextX);
+
+            return !objectOnPath && (nextX + width) <= this.size;
+        } else if (direction === DIRECTION.DOWN) {
             const nextY = y + 1;
-            const objectOnPath = this._getObjectOnPath(object, x, nextY)
-            return !objectOnPath && nextY + CELL_SIZE < this.size;
-        } else if (object.direction === DIRECTION.LEFT) {
+            const objectOnPath = this._getObjectOnY(object, nextY);
+
+            return !objectOnPath && (nextY + height) <= this.size;
+        } else if (direction === DIRECTION.LEFT) {
             const nextX = x - 1;
-            const objectOnPath = this._getObjectOnPath(object, nextX, y)
-            return !objectOnPath && nextX > 0;
+            const objectOnPath = this._getObjectOnX(object, nextX);
+
+            return !objectOnPath && nextX >= 0;
         }
     }
 
-    _getObjectOnPath(object, x, y) {
+    _getObjectOnX(object, nextX) {
         return this.level
-            .reduce((result, block) => result.concat(...block), [])
+            .reduce((result, blocks) => result.concat(...blocks), [])
             .find(block =>
-                    block.sprite > 0
-                    && (
-                        isSame(object.y, block.y)
-                        || isBetween(y, block.y, block.y + block.height)
-                        || isBetween(object.y + object.height, block.y, block.y + block.height)
-                    ) && (
-                        isSame(object.x, block.x)
-                        || isBetween(x, block.x, block.x + block.width)
-                        || isBetween(object.x + object.width, block.x, block.x + block.width)
-                    )
+                block.sprite > 0 &&
+                (
+                    isSame(object.y, block.y) ||
+                    isBetween(object.y, block.y, block.y + block.height) ||
+                    isBetween(object.y + object.height, block.y, block.y + block.height)
+                )
+                &&
+                (
+                    isSame(nextX, block.x) ||
+                    isBetween(nextX, block.x, block.x + block.width) ||
+                    isBetween(nextX + object.width, block.x, block.x + block.width)
+                )
+            );
+    }
 
-            )
+    _getObjectOnY(object, nextY) {
+        return this.level
+            .reduce((result, blocks) => result.concat(...blocks), [])
+            .find(block =>
+                block.sprite > 0 &&
+                (
+                    isSame(nextY, block.y) ||
+                    isBetween(nextY, block.y, block.y + block.height) ||
+                    isBetween(nextY + object.height, block.y, block.y + block.height)
+                )
+                &&
+                (
+                    isSame(object.x, block.x) ||
+                    isBetween(object.x, block.x, block.x + block.width) ||
+                    isBetween(object.x + object.width, block.x, block.x + block.width)
+                )
+            );
     }
 
 }
