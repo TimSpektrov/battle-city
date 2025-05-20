@@ -48,7 +48,7 @@ export default class World {
     }
 
 
-    setLevel(data) {
+    setStage(data) {
         this.level = data.map((blocks, y) => {
             return blocks.map((block, x) => {
                 return block > 0 ? new Wall({

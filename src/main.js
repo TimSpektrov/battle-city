@@ -3,7 +3,7 @@ import World from "./world.js";
 import View from "./view.js";
 import Game from "./game.js";
 import Sprite from "./sprire.js";
-import levels from "./data/levels.js";
+import stages from "./data/stages.js";
 import spriteMap from "./data/sprite-map.js";
 
 
@@ -13,7 +13,7 @@ const sprite = new Sprite('./src/assets/sprite.png', spriteMap);
 const game = new Game({
         world: new World(),
         view: new View(canvas, sprite),
-        levels
+        stages
     })
 
 game.init().then(() => game.start())

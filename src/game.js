@@ -1,9 +1,11 @@
+import {KEYS} from "./constants.js";
+
 export default class Game {
-    constructor({ world, view, levels }) {
+    constructor({ world, view, stages }) {
         this.world = world;
         this.view = view;
-        this.levels = levels
-        this.level = 0
+        this.stages = stages
+        this.stage = 0
         this.activeKeys = new Set()
 
         this.loop = this.loop.bind(this)
@@ -11,16 +13,16 @@ export default class Game {
 
     async init() {
         this.view.init();
-        this.world.setLevel(this.levels[this.level]);
+        this.world.setStage(this.stages[this.stage]);
 
         document.addEventListener('keydown', (e) => {
             switch (e.code) {
-                case 'ArrowUp':
-                case 'ArrowDown':
-                case 'ArrowLeft':
-                case 'ArrowRight':
-                case 'Space':
-                case 'Enter':
+                case KEYS.UP:
+                case KEYS.DOWN:
+                case KEYS.LEFT:
+                case KEYS.RIGHT:
+                case KEYS.SPACE:
+                case KEYS.ENTER:
                     e.preventDefault()
                     this.activeKeys.add(e.code)
             }
@@ -28,12 +30,12 @@ export default class Game {
 
         document.addEventListener('keyup', (e) => {
             switch (e.code) {
-                case 'ArrowUp':
-                case 'ArrowDown':
-                case 'ArrowLeft':
-                case 'ArrowRight':
-                case 'Space':
-                case 'Enter':
+                case KEYS.UP:
+                case KEYS.DOWN:
+                case KEYS.LEFT:
+                case KEYS.RIGHT:
+                case KEYS.SPACE:
+                case KEYS.ENTER:
                     e.preventDefault()
                     this.activeKeys.delete(e.code)
             }

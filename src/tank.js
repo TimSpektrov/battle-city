@@ -1,4 +1,6 @@
-import {CELL_SIZE, DIRECTION} from "./constants.js";
+import {CELL_SIZE, DIRECTION, KEYS} from "./constants.js";
+
+const TANK_TURN_SIZE = CELL_SIZE;
 
 export default class Tank {
     constructor({x, y, width, height, direction, speed, frames}) {
@@ -10,6 +12,7 @@ export default class Tank {
         this.speed = speed;
         this.frames = frames;
         this.animationFrame = 0;
+        this.isFiring = false;
     }
 
     get top() {
@@ -33,28 +36,28 @@ export default class Tank {
     }
 
     update(world, activeKeys) {
-        if (activeKeys.has('ArrowUp')) {
+        if (activeKeys.has(KEYS.UP)) {
             this._turn(DIRECTION.UP);
             this._move('y', -1);
 
             if (world.isOutOfBounds(this) || world.hasCollision(this)) {
                 this._move('y', 1);
             }
-        } else if (activeKeys.has('ArrowRight')) {
+        } else if (activeKeys.has(KEYS.RIGHT)) {
             this._turn(DIRECTION.RIGHT);
             this._move('x', 1);
 
             if (world.isOutOfBounds(this) || world.hasCollision(this)) {
                 this._move('x', -1);
             }
-        } else if (activeKeys.has('ArrowDown')) {
+        } else if (activeKeys.has(KEYS.DOWN)) {
             this._turn(DIRECTION.DOWN);
             this._move('y', 1);
 
             if (world.isOutOfBounds(this) || world.hasCollision(this)) {
                 this._move('y', -1);
             }
-        } else if (activeKeys.has('ArrowLeft')) {
+        } else if (activeKeys.has(KEYS.LEFT)) {
             this._turn(DIRECTION.LEFT);
             this._move('x', -1);
 
@@ -62,14 +65,27 @@ export default class Tank {
                 this._move('x', 1);
             }
         }
+
+        if(activeKeys.has(KEYS.SPACE)) {
+            console.log('fire')
+            // const bullet = {}
+        }
     }
 
     _turn(direction) {
+        if(this.direction !== direction) {
+            direction % 2 === 0 ? this._turningMove('x') : this._turningMove('y')
+        }
+
         this.direction = direction
     }
 
     _move(axis, value) {
         this[axis] += this.speed * value;
         this.animationFrame ^= 1;
+    }
+
+    _turningMove(axis) {
+        this[axis] = Math.round(this[axis] / TANK_TURN_SIZE) * TANK_TURN_SIZE
     }
 }
