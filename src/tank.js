@@ -1,38 +1,20 @@
-import {CELL_SIZE, DIRECTION, KEYS} from "./constants.js";
+import {BULLET_HEIGHT, BULLET_SPRITES, BULLET_WIDTH, CELL_SIZE, DIRECTION, KEYS} from "./constants.js";
+import Bullet from "./bullet.js";
+import GameObject from "./game-object.js";
 
 const TANK_TURN_SIZE = CELL_SIZE;
 
-export default class Tank {
-    constructor({x, y, width, height, direction, speed, frames}) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+export default class Tank extends GameObject {
+    constructor({direction, speed, ...rest}) {
+        super(rest)
+
         this.direction = direction;
         this.speed = speed;
-        this.frames = frames;
         this.animationFrame = 0;
-        this.isFiring = false;
-    }
-
-    get top() {
-        return this.y;
-    }
-
-    get right() {
-        return this.x + this.width;
-    }
-
-    get bottom() {
-        return this.y + this.height;
-    }
-
-    get left() {
-        return this.x;
     }
 
     get sprite() {
-        return this.frames[this.direction * 2 + this.animationFrame];
+        return this.sprites[this.direction * 2 + this.animationFrame];
     }
 
     update(world, activeKeys) {
@@ -67,8 +49,16 @@ export default class Tank {
         }
 
         if(activeKeys.has(KEYS.SPACE)) {
-            console.log('fire')
-            // const bullet = {}
+            if(!this.bullet) {
+                this.bullet = new Bullet({
+                    x: this.x,
+                    y: this.y,
+                    width: BULLET_WIDTH,
+                    height: BULLET_HEIGHT,
+                    sprites: BULLET_SPRITES,
+                });
+                world.bullets.push(this.bullet);
+            }
         }
     }
 
