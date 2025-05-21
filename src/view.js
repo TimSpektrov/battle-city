@@ -29,7 +29,7 @@ export default class View {
 
             if (object.debug) {
                 this.context.strokeStyle = '#ff0000';
-                this.context.lineWidth = 2;
+                this.context.lineWidth = 1;
                 this.context.strokeRect(x + 1, y + 1, width - 2, height - 2);
                 object.debug = false;
             }
@@ -37,19 +37,12 @@ export default class View {
     }
 
     renderGrid() {
-        for (let y = 0; y < NUMBER_OF_CELLS; y++) {
-            for (let x = 0; x < NUMBER_OF_CELLS; x++) {
-                this.context.strokeStyle = '#ffffff';
-                this.context.lineWidth = .2;
-                this.context.strokeRect(x * UNIT_SIZE + 1, y * UNIT_SIZE + 1, UNIT_SIZE - 2, UNIT_SIZE - 2);
-            }
-        }
 
         for (let y = 0; y < NUMBER_OF_CELLS * 2; y++) {
             for (let x = 0; x < NUMBER_OF_CELLS * 2; x++) {
                 this.context.strokeStyle = '#ffffff';
-                this.context.lineWidth = .1;
-                this.context.strokeRect(x * CELL_SIZE + 1, y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                this.context.lineWidth = .05;
+                this.context.strokeRect(x * CELL_SIZE + 1, y * CELL_SIZE + 1, CELL_SIZE - 1, CELL_SIZE - 1);
             }
         }
     }

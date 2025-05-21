@@ -77,6 +77,7 @@ export default class World {
 
     update(activeKeys) {
         this.player1Tank.update(this, activeKeys)
+        this.bullets.forEach(bullet => bullet.update(this))
     }
 
     isOutOfBounds(object) {

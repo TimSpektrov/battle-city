@@ -29,8 +29,9 @@ export const OBJECT_TYPE = {
 
 export const UNIT_SIZE = CELL_SIZE * 2
 
-export const BULLET_WIDTH = 10;
-export const BULLET_HEIGHT = 10;
+export const BULLET_WIDTH = 4;
+export const BULLET_HEIGHT = 4;
+export const BULLET_SPEED = 1.5;
 
 export const TANK_WIDTH = UNIT_SIZE;
 export const TANK_HEIGHT = UNIT_SIZE;
@@ -66,10 +67,10 @@ export const STEEL_WALL_SPRITES = [
 ]
 
 export const BULLET_SPRITES = [
-    [7 * UNIT_SIZE, 20 * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE],
-    [7 * UNIT_SIZE, 20 * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE],
-    [7 * UNIT_SIZE, 20 * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE],
-    [7 * UNIT_SIZE, 20 * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE],
+    [(20 * UNIT_SIZE) + 3, (6  * UNIT_SIZE) + 6, BULLET_WIDTH, BULLET_HEIGHT],
+    [(20 * UNIT_SIZE) + 2 + 3 * CELL_SIZE, (6  * UNIT_SIZE) + 6, BULLET_WIDTH, BULLET_HEIGHT],
+    [(20 * UNIT_SIZE) + 3 + 2 * CELL_SIZE, (6  * UNIT_SIZE) + 6, BULLET_WIDTH, BULLET_HEIGHT],
+    [(20 * UNIT_SIZE) + 2 + CELL_SIZE, (6  * UNIT_SIZE) + 6, BULLET_WIDTH, BULLET_HEIGHT],
 ]
 
 export const BASE_SPRITES = [
